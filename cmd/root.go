@@ -8,14 +8,14 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"magnetron/joyrex2001/asciime/backend"
+	"github.com/joyrex2001/asciime/backend"
 )
 
 var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "asciime",
-	Short: "asciime is a service that converts images to ascii art.",
+	Short: "ASCIIme is an application that converts images to ascii art.",
 	Long:  ``,
 	Run:   backend.Main,
 }

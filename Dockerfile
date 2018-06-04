@@ -1,7 +1,7 @@
 
 FROM docker.io/golang:1.10
 
-ARG CODE=magnetron/joyrex2001/asciime
+ARG CODE=github.com/joyrex2001/asciime
 
 ADD . /go/src/${CODE}/
 ADD ./frontend /app/frontend
