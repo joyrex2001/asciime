@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>ASCIIme</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script src="/public/js/jquery-3.3.1.min.js"></script>
+    <script src="/public/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="hacker">
+
+    <div class="container">
+        <div class="logo">ASCIIme</div>
+    </div>
+
+    <div class="container">
+        <form id="upload" action="/action/upload" method="POST" enctype="multipart/form-data">
+            <label class="btn btn-primary">
+                Upload&hellip; <input name="file" type="file" style="display: none;" accept="image/*">
+            </label>
+        </form>
+    </div>
+
+    <script>
+    $(function() {
+      $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      });
+
+      $(document).ready( function() {
+          $(':file').on('fileselect', function(event, numFiles, label) {
+              $('#upload').submit();
+          });
+      });
+    });
+    </script>
+
+</body>
+
+</html>
