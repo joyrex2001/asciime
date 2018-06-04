@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"sync"
 	"text/template"
+	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -32,6 +33,7 @@ func (f *handler) init() {
 	f.mux = httprouter.New()
 	f.mux.POST("/action/upload", f.PostImage)
 	f.mux.GET("/public/*filepath", f.ServeFiles("public"))
+	f.mux.GET("/healthz", f.Healthz)
 	f.mux.GET("/", f.Redirect(307, "/public/"))
 }
 
@@ -49,6 +51,12 @@ func (f *handler) ServeFiles(folder string) httprouter.Handle {
 // FileStore will return a http filesystem object for given folder.
 func (f *handler) FileStore(folder string) http.FileSystem {
 	return http.Dir("./frontend/" + folder)
+}
+
+// Healthz will return a liveness response.
+func (f *handler) Healthz(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "{ status: 'OK', timestamp: %d }", time.Now().Unix())
+	return
 }
 
 // Redirect will redirect the user to given location.
